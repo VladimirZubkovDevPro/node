@@ -1,0 +1,10 @@
+{
+  "name": "Patric",
+  "age": 16,
+  "position": "Unknown",
+  "last_name": "Star",
+  "address": {
+    "county": "UA",
+    "city": "Kiev"
+  }
+}

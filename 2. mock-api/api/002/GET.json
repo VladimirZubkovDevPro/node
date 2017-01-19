@@ -1,0 +1,10 @@
+{
+  "name": "Nick",
+  "age": 19,
+  "position": "Admin",
+  "last_name": "Corners",
+  "address": {
+    "county": "UA",
+    "city": "Kiev"
+  }
+}
