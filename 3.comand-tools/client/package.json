@@ -1,0 +1,17 @@
+{
+  "name": "copierfield",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": {
+    "filesync": "app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "argv": "0.0.2",
+    "inquirer": "^2.0.0",
+    "request": "^2.79.0"
+  }
+}
