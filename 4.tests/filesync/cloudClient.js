@@ -11,6 +11,8 @@ module.exports = {
 };
 
 function postFileToCloud(filePath, username, password) {
+  console.log('save');
+
   return fs.statAsync(filePath)
     .then(stats => {
       console.log('Trying to sync file', filePath, 'with size', stats.size);

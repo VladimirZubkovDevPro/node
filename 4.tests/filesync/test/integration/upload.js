@@ -1,13 +1,18 @@
+const path = require('path');
+const root = path.join(__dirname, '..', '..', '..');
 const spawn = require('child-process-promise').spawn;
 const expect = require('chai').expect;
-const VALID_FILE_PATH = '../../README.md';
-const INVALID_FILE_PATH = '../../README123.md';
+const VALID_FILE_PATH = `${root}/README.md`;
+const INVALID_FILE_PATH = `${root}/README123.md`;
 const PASSWORD_PROMPT = 'Enter password:';
 const VALID_USER = 'qwe';
+const INVALID_USER = 'quaker';
 const SHORT_PASSWORD = 'short';
 const VALID_PASSWORD = 'securepass';
+const INVALID_PASSWORD = 'passwordsecure';
 const PASSWORD_MIN_LENGTH = 6;
-const SERVER_DOWN_ERROR = 'connect ECONNREFUSED 127.0.0.1:3000';
+const SERVER_DOWN_ERROR = 'Cannot read property \'row\' of undefined';
+const SERVER_UNAUTHORIZED_ERROR = 'Cannot read property \'row\' of undefined';
 const SHORT_PASSWORD_ERROR = 'Password should have length more than ' + PASSWORD_MIN_LENGTH;
 const NO_FILE_ERROR_PART = 'ENOENT: no such file or directory';
 
@@ -79,6 +84,40 @@ describe('Upload', function() {
     });
   });
 
-//TO-DO: add more tests
+
+  it('should give unauthorized error on wrong username', function(done) {
+    const command = spawn('filesync', ['-u', INVALID_USER, VALID_FILE_PATH], { capture: [ 'stdout', 'stderr' ]});
+    const childProcess = command.childProcess;
+
+    childProcess.stdout.on('data', function handler() {
+      childProcess.stdin.write(VALID_PASSWORD + '\n');
+      childProcess.stdout.removeListener('data', handler);
+    });
+
+    childProcess.stderr.on('data', function errorHandler(data) {
+      const stderr = data.toString().trim();
+      expect(stderr).to.equal(SERVER_UNAUTHORIZED_ERROR);
+      childProcess.stderr.removeListener('data', errorHandler);
+      done();
+    });
+  });
+
+
+  it('should give unauthorized error on wrong password', function(done) {
+    const command = spawn('filesync', ['-u', VALID_USER, VALID_FILE_PATH], { capture: [ 'stdout', 'stderr' ]});
+    const childProcess = command.childProcess;
+
+    childProcess.stdout.on('data', function handler() {
+      childProcess.stdin.write(INVALID_PASSWORD + '\n');
+      childProcess.stdout.removeListener('data', handler);
+    });
+
+    childProcess.stderr.on('data', function errorHandler(data) {
+      const stderr = data.toString().trim();
+      expect(stderr).to.equal(SERVER_UNAUTHORIZED_ERROR);
+      childProcess.stderr.removeListener('data', errorHandler);
+      done();
+    });
+  });
 
 });
