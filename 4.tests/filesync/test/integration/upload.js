@@ -11,8 +11,8 @@ const SHORT_PASSWORD = 'short';
 const VALID_PASSWORD = 'securepass';
 const INVALID_PASSWORD = 'passwordsecure';
 const PASSWORD_MIN_LENGTH = 6;
-const SERVER_DOWN_ERROR = 'Cannot read property \'row\' of undefined';
-const SERVER_UNAUTHORIZED_ERROR = 'Cannot read property \'row\' of undefined';
+const SERVER_DOWN_ERROR = 'connect ECONNREFUSED 127.0.0.1:3000';
+const SERVER_UNAUTHORIZED_ERROR = 'Unauthorized';
 const SHORT_PASSWORD_ERROR = 'Password should have length more than ' + PASSWORD_MIN_LENGTH;
 const NO_FILE_ERROR_PART = 'ENOENT: no such file or directory';
 
